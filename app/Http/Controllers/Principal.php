@@ -50,15 +50,15 @@ class Principal extends Controller
             $new_staff = new User;
             $new_staff -> id = $request->staff_id;
             $new_staff -> user_type = 'Teacher';
-            $new_staff -> name_chi = strtoupper($request ->chi_name);
-            $new_staff -> name_eng = strtoupper($request ->eng_name);
+            $new_staff -> name_chi = mb_strtoupper($request ->chi_name);
+            $new_staff -> name_eng = mb_strtoupper($request ->eng_name);
             $new_staff -> email = $request->staff_id.".subject_teacher@jitsin-ind.edu.my";
             $new_staff -> password = Hash::make($request->id);
             $new_staff -> identity = $request ->identity;
             $new_staff -> personal_email = $request ->personal_email;
             $new_staff -> contact_home = $request->home_contact;
             $new_staff -> personal_contact = $request->personal_contact;
-            $new_staff -> home_address = strtoupper($request ->home_address);
+            $new_staff -> home_address = mb_strtoupper($request ->home_address);
             if($request->ex_SMJK != null){
                 $new_staff -> ex_studentSMJK = $request->ex_SMJK;
             }
@@ -128,7 +128,7 @@ class Principal extends Controller
         try {
             $user_edu = new UserEducation;
             $user_edu -> user_id = $request ->staff_id;
-            $user_edu -> education_background =strtoupper($request ->edu); 
+            $user_edu -> education_background =mb_strtoupper($request ->edu); 
             $user_edu -> level = $request ->edu_level;
             $user_edu -> period = $request ->edu_period;
             $user_edu ->save();
