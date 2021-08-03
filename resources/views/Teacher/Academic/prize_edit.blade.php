@@ -29,6 +29,8 @@
     <div class="row">
         <h4 class="col-sm-4">查看 / 修改学术比赛</h4>
     </div>
+        <a href="{{route('academic.prize')}}" class =" btn btn-secondary btn-sm float-right">得奖总表</a>
+    <br>
     <br>
     {!! Form::open(['method'=>'post','action'=>['App\Http\Controllers\Academic@prize_save']]) !!}
         <div class="row">
@@ -73,7 +75,7 @@
         </div>
         <br>
         <div class="row">
-                 <input type="text" name ="id" hidden value ="{{$academic->id}}">
+                <input type="text" name ="id" hidden value ="{{$academic->id}}">
                 <input type="submit" class =" btn btn-success col-sm-2 ml-auto"value ="储存 Save">
         </div>
         {!! Form::close() !!}
@@ -90,8 +92,9 @@
                         <th scope="col">学号</th>
                         <th scope="col">姓名</th>
                         <th scope="col" class="text-center">班级</th>
-
                         <th scope="col" class="text-center">奖项</th>
+                        <th scope="col" class="text-center"></th>
+
                     </tr>
                 </thead>
             <tbody>
@@ -99,14 +102,30 @@
             <tr>
                 <th scope="row"></th>
                 <td>{{$winner->id}}</td>
+
+
+                <td>{{$winner->name_chi}}   {{$winner->name_eng}}</td>
+                <td class ="text-center">
                 @php
                     $competition_year = date("Y",strtotime($academic->date));
-                    $class_name = $winner->classes->where('year',$competition_year)->first();
+                    if($winner->classes->where('year',$competition_year)->first() != null){
+                        $class_name = $winner->classes->where('year',$competition_year)->first();
+                        echo $class_name->class_name;
+                    }else{
+                        echo "Class Not Found";
+                    }
                 @endphp
-
-                <td>{{$winner->name_chi}}   {{$winner->name_eng}} </td>
-                <td class ="text-center">{{$class_name->class_name}}</td>
+                </td>
                 <td class="text-center">{{$winner->pivot->award}}</td>
+                <td class="text-center">
+                {!! Form::open(['method'=>'delete','action'=>['App\Http\Controllers\Academic@prize_deletewinner']]) !!}
+
+                    <input type="text" value ="{{$winner->pivot->id}}"  hidden name ="pivot_id">
+                    <input type="checkbox" required>
+                    <input type="submit" value ="Remove" class ="btn btn-danger btn-sm">
+                {!! Form::close() !!}
+                </td>
+
             </tr>
             @endforeach
             </tbody>
@@ -115,11 +134,10 @@
 
             <div class="row my-2">
                 <button class = 'btn btn-success col-sm-1 mx-auto btn-sm' data-toggle="modal" data-target="#add_participant"><i class="fas fa-plus"></i></button>
-                <button class = 'btn btn-danger col-sm-1 mx-auto btn-sm'><i class="fas fa-minus"></i></button>
             </div>
 
 
-
+{!! Form::open(['method'=>'post','action'=>['App\Http\Controllers\Academic@prize_addwinner']]) !!}
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="add_participant" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -132,21 +150,28 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <label for="exampleInputEmail1">得奖参赛者</label>
-            <select name="awarder" id="awarder" class ="form-control selectpicker" multiple>
-                <option value="" disabled></option>
+            <label for="winner">得奖参赛者</label>
+            <select name="winner" id="winner" class ="form-control selectpicker" data-live-search ="True">
+                <option value=""></option>
                 @foreach($students as $student)
                     <option value="{{$student->id}}">{{$student->id}} {{$student->name_chi}} {{$student->name_eng}}</option>
                 @endforeach
             </select>
+            <input type="text" name ="competition_id" value ="{{$academic->id}}" hidden>
+        </div>
+        <div class="form-group">
+            <label for="winner">得奖项目</label>
+            <input type="text" name ="award_detail" class ="form-control">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        <input type="submit" class ='btn btn-sm btn-success' name ="submit" value ="Save"> 
       </div>
     </div>
   </div>
 </div>
+{!! Form::close() !!}
+
     @endsection
 </x-home-master>

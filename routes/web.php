@@ -53,5 +53,7 @@ Route::post('/academic/supdate',[App\Http\Controllers\Academic::class, 'suec_upd
 Route::get('/academic/prize',[App\Http\Controllers\Academic::class, 'prize'])->name('academic.prize');
 Route::get('/academic/prize/{id}',[App\Http\Controllers\Academic::class, 'prize_edit'])->name('academic.prize_edit');
 Route::post('/academic/prize_save',[App\Http\Controllers\Academic::class, 'prize_save'])->name('academic.prize_save');
+Route::post('/academic/prize_addwinner',[App\Http\Controllers\Academic::class, 'prize_addwinner'])->name('academic.prize_addwinner');
+Route::delete('/academic/prize_removewinner',[App\Http\Controllers\Academic::class, 'prize_deletewinner'])->name('academic.delete_addwinner');
 
 

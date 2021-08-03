@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentCreate_Request;
 use App\Http\Requests\Prize_Request;
+use App\Http\Requests\AddWinner_Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Students;
 use App\Models\students_primaryprize;
@@ -14,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SuecImport;
 use App\Models\Suec;
 use App\Models\Prize;
-
+use App\Models\prize_students;
 use Carbon\Carbon;
 
 
@@ -47,8 +48,7 @@ class Academic extends Controller
         $new_record->country = mb_strtoupper($clean_data['country']);
         $new_record->home_address = mb_strtoupper($clean_data['home_address']);
         $new_record->primary_school = mb_strtoupper($clean_data['primary_school']);
-        // $new_record->primary_year = date("Y", strtotime($clean_data['graduate_year']));
-        $new_record->primary_year = '2021';
+        $new_record->primary_year = date("Y", strtotime($clean_data['graduate_year']));
         $new_record->primary_grade = mb_strtoupper($clean_data['primary_grade']);
         $new_record->main_contact = mb_strtoupper($clean_data['main_contact']);
         $new_record->school_mail = $clean_data['student_id'].'.student@jitsin-ind.edu.my';
@@ -306,6 +306,27 @@ class Academic extends Controller
             return back();
         }else{
             $request->session()->flash('message_error', '更新失败');
+            return back();
+        }
+    }
+
+    public function prize_addwinner(AddWinner_Request $request){
+        $clean_data = $request->validated();
+        $new = new prize_students;
+        $new->students_id = $clean_data['winner'];
+        $new->prize_id = $clean_data['competition_id'];
+        $new->award = $clean_data['award_detail'];
+        $new->save();
+        return back();
+    }
+
+    public function prize_deletewinner(Request $request){
+        $exist_record = prize_students::where('id','=',$request['pivot_id'])->first();
+        if( $exist_record->delete()){
+            $request->session()->flash('message', '移除成功');
+            return back();
+        }else{
+            $request->session()->flash('message_error', '移除失败');
             return back();
         }
     }

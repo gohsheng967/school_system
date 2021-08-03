@@ -10,6 +10,6 @@ class Prize extends Model
     use HasFactory;
 
     public function students(){
-        return $this->belongsToMany('App\Models\Students')->withPivot('award');
+        return $this->belongsToMany('App\Models\Students')->withPivot('award','id');
     }
 }
