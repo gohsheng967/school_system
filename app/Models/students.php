@@ -22,7 +22,7 @@ class students extends Model
         return $this->hasMany('App\Models\Suec');
     }
     public function Prize(){
-        return $this->belongsToMany('App\Models\Prize');
+        return $this->belongsToMany('App\Models\Prize')->withPivot('award');
     }
 
 

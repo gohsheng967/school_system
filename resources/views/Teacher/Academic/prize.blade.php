@@ -1,7 +1,10 @@
 <x-home-master>
 @section('content')
 <h5>学生学术比赛</h5>
+<a href="{{route('academic.menu')}}" class ="btn btn-secondary float-right btn-sm">目录</a>
 <br>
+<br>
+
 <table id="dataTable" class="table table-bordered" style ="width:100%">
         <thead class="thead-dark">
             <tr>

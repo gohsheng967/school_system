@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 $(function () {
     
-  var table = $('.data-table31').DataTable({
+  var table = $('.data-table3').DataTable({
     dom: 'Bfrtip',
 
     buttons: [
@@ -62,25 +62,3 @@ $(function () {
   
 });
 
-// $(function () {
-    
-//   var table = $('.data-table31').DataTable({
-//     dom: 'Bfrtip',
-
-//     buttons: [
-//       'copy', 'excel'
-//   ],
-  
-//       processing: true,
-//       serverSide: true,
-//       ajax: "/getStudents",
-//       columns: [
-//           {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false},
-//           {data: 'student_profile_id', name: 'student_profile_id'},
-//           {data: 'class_name_id', name: 'class_name_id'},
-//           {data: 'year', name: 'year'},
-//         ]
-      
-//   });
-  
-// });

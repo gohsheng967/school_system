@@ -8,6 +8,12 @@ use App\Models\UserPosition;
 use App\Models\UserEducation;
 use App\Models\Course;
 use App\Models\UserCourse;
+use App\Models\Promotions;
+use App\Models\Students;
+use App\Models\Promotions_students;
+
+use App\Http\Requests\Promotion_Request;
+
 
 use Illuminate\Support\Facades\Log;
 use Hash;
@@ -237,6 +243,89 @@ class Principal extends Controller
     }
 
     public function promotion(){
-        return view('Teacher.Principal.promotion');
+        $promotion = Promotions::all();
+        return view('Teacher.Principal.promotion',['promotion' => $promotion]);
+    }
+
+    public function promotion_add(Promotion_Request $request){
+
+        try{
+            $clean_data = $request->validated();
+            $new = new Promotions;
+            $new->title = $clean_data['promo_title'];
+            $new->category = $clean_data['category'];
+            $new->remark = $clean_data['remark'];
+            $new->save();
+            $request->session()->flash('message', '成功添加在学优惠');
+
+        }
+        catch (\Exception $e) {
+            $request->session()->flash('message_error', '添加在学优惠失败');
+        }
+        return back();
+
+    }
+    
+    public function promotion_details($id){
+        $record = Promotions::where('id',$id)->first();
+        $students =Students::all();
+        return view('Teacher.Principal.promotion_detail',['record'=>$record,'students'=> $students]);
+    }
+
+    public function promotion_edit(Promotion_Request $request, $id){
+        try{
+            $clean_data = $request->validated();
+            $record = Promotions::where('id',$id)->first();
+            $record->title = $clean_data['promo_title'];
+            $record->category = $clean_data['category'];
+            $record->remark = $clean_data['remark'];
+            $record->save();
+            $request->session()->flash('message', '成功更新在学优惠');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', '更新在学优惠失败');
+            }
+            return back();
+    }
+    public function promotion_delete(Request $request, $id){
+        try{
+            $record = Promotions::where('id',$id)->first();
+            $record->delete();
+            $request->session()->flash('message', '成功删除在学优惠');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', '删除在学优惠失败');
+            }
+            return redirect()->route('principal.promotion');
+    }
+
+    public function promotion_students(Request $request){
+            try{
+                $new = new promotions_students;
+                $new->students_id = $request->student_id;
+                $new->promotions_id =$request->promotions_id;
+                $new->year = $request->year;
+                $new->remark = $request->remark;
+                $new->save();
+                $request->session()->flash('message', '成功更新在学优惠');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', '更新在学优惠失败');
+            }
+            return back();
+        
+    }
+    public function promotion_students_delete (Request $request, $id){
+        try{
+            $delete_id = promotions_students::where('id',$id);
+            $delete_id->delete();
+
+            $request->session()->flash('message', '删除成功');
+        }
+        catch (\Exception $e) {
+            $request->session()->flash('message_error', '删除失败');
+        }
+        return back();        
+
     }
 }

@@ -68,4 +68,6 @@ $('.custom-file-input').on('change',function(){
   $(this).next('.custom-file-label').html(fileName);
 })
 
-
+$('#confirm-delete').on('show.bs.modal', function(e) {
+  $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+});

@@ -9,7 +9,7 @@
     </div>
     <hr>
     <div class="row">
-        <a href="{{route('principal.promotion')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">维护学生在学优惠</a>
+        <a href="{{route('principal.promotion')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">学生在学优惠</a>
     </div>
 </div>
     <hr>

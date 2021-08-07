@@ -35,6 +35,12 @@ Route::get('/principal/course_edit/{id}',[App\Http\Controllers\Principal::class,
 Route::post('/principal/course_attend',[App\Http\Controllers\Principal::class, 'course_attend'])->name('principal.course_attend');
 Route::delete('/principal/course_attend_del',[App\Http\Controllers\Principal::class, 'course_attend_del'])->name('principal.course_attend_del');
 Route::get('/principal/promotion',[App\Http\Controllers\Principal::class, 'promotion'])->name('principal.promotion');
+Route::post('/principal/promotion_add',[App\Http\Controllers\Principal::class, 'promotion_add'])->name('principal.promotion_add');
+Route::get('/principal/promotion/{id}',[App\Http\Controllers\Principal::class, 'promotion_details'])->name('principal.promotion_details');
+Route::patch('/principal/promo_edit/{id}',[App\Http\Controllers\Principal::class, 'promotion_edit'])->name('principal.promotion_edit');
+Route::delete('/principal/promo_delete/{id}',[App\Http\Controllers\Principal::class, 'promotion_delete'])->name('principal.promotion_delete');
+Route::post('/principal/promo/students',[App\Http\Controllers\Principal::class, 'promotion_students'])->name('principal.promotion_students');
+Route::get('/principal/promo/students/{id}',[App\Http\Controllers\Principal::class, 'promotion_students_delete'])->name('principal.promotion_students_delete');
 
 
 Route::get('/academic/menu',[App\Http\Controllers\Academic::class, 'menu'])->name('academic.menu');

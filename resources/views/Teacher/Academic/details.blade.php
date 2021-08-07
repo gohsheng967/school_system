@@ -149,7 +149,7 @@
             </div>
         </div>
         <hr>
-        <ul class="nav nav-tabs bg-custom2" id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">父母资料</a>
             </li>
@@ -163,7 +163,7 @@
             <a class="nav-link" id="uec-tab" data-toggle="tab" href="#uec" role="tab" aria-controls="uec" aria-selected="false">统考成绩</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" id="prize_list-tab" data-toggle="tab" href="#prize_list" role="tab" aria-controls="prize_list" aria-selected="false">得奖记录</a>
+            <a class="nav-link" id="prize_list-tab" data-toggle="tab" href="#prize_list" role="tab" aria-controls="prize_list" aria-selected="false">中学得奖记录</a>
             </li>
         </ul>
 
@@ -365,6 +365,38 @@
                 </div>
                 <br>
                 <div class="row">
+                <h5 class ="col-sm-6">小学成绩</h5>
+                </div>
+                <div class="row">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class='text-center'>国文理解</th>
+                            <th scope="col" class='text-center'>国文作文</th>
+                            <th scope="col" class='text-center'>英文理解</th>
+                            <th scope="col" class='text-center'>英文作文</th>
+                            <th scope="col" class='text-center'>华文理解</th>
+                            <th scope="col" class='text-center'>华文作文</th>
+                            <th scope="col" class='text-center'>数学</th>
+                            <th scope="col" class='text-center'>科学</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_malay_comprehensive}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_malay_essay}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_english_comprehensive}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_english_essay}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_chinese_comprehensive}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_chinese_essay}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_math}}"></td>
+                            <td><input type="text" class="form-control text-center" value ="{{$student->primary_sains}}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <br>
+                <div class="row">
                     <h5 class ="col-sm-6">小学得奖记录</h5>
                 </div>
                 <div class="row p-2">
@@ -397,10 +429,10 @@
                         </tr>
                     @endforeach
                         <tr>
-                            <td colspan ="5"><button class = "btn btn-outline-success btn-block btn-sm" data-toggle="modal" data-target="#addprimaryprize">+</button></td>
+                            <td colspan ="5"><button class = "btn btn-success btn-block btn-sm" data-toggle="modal" data-target="#addprimaryprize">+</button></td>
                         </tr>
                     </tbody>
-                    </table>
+                </table>
                 </div>
             </div>
             <div class="tab-pane fade p-4 " id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -644,7 +676,33 @@
                 </div>
             </div>
             <div class="tab-pane fade p-4" id="prize_list" role="tabpanel" aria-labelledby="prize_list-tab">
-
+                <h4>学术比赛</h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">比赛日期</th>
+                            <th scope="col">比赛标题</th>
+                            <th scope="col">主办单位</th>
+                            <th scope="col">组别</th>
+                            <th scope="col">级别</th>
+                            <th scope="col">奖项</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($student->prize as $award)
+                        <tr>
+                            <td>{{$award->date}}</td>
+                            <td>{{$award->title}}</td>
+                            <td>{{$award->organizer}}</td>
+                            <td>{{$award->group}}</td>
+                            <td>{{$award->level}}</td>
+                            <td>{{$award->pivot->award}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <br>
+                <h4>联课比赛</h4>
             </div>
         </div>
 
