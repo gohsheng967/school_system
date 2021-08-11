@@ -16,6 +16,9 @@ use App\Imports\SuecImport;
 use App\Models\Suec;
 use App\Models\Prize;
 use App\Models\prize_students;
+use App\Models\Classes;
+use App\Models\User;
+
 use Carbon\Carbon;
 
 
@@ -331,5 +334,59 @@ class Academic extends Controller
         }
     }
 
+
+    public function class_summary(){
+        $class = Classes::orderBy('class_name')->get();
+        $user = User::all();
+        return view('Teacher.academic.class_summary',['class'=>$class,'user'=>$user]);
+    }
+
+    public function class_add(Request $request){
+        try{
+            $class = new Classes;
+            $class->class_name = mb_strtoupper($request->class_name);
+            $class->year = $request->class_year;
+            $class->user_id = $request->user_id;
+            $class->save();
+            $request->session()->flash('message', '成功添加班级');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', '添加班级失败');
+            }
+            return redirect()->route('academic.class_summary');
+    }
+    
+    public function class_edit($id){
+        $class = Classes::where('id',$id)->first();
+        $form_teacher = User::all();
+        return view('Teacher.academic.class_edit',['class'=>$class,'form_teacher'=>$form_teacher]);       
+    }
+
+    public function class_save(Request $request, $id){
+        try{
+            $class = Classes::where('id',$id)->first();
+            $class->class_name = $request->class_name;
+            $class->user_id = $request->class_teacher;
+            $class->year = $request->class_year;
+            $class->save();
+            $request->session()->flash('message', '储存成功');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', $e->getMessage());
+            }
+            return back();
+    }
+
+    public function class_del(Request $request, $id){
+        try{
+            $class = Classes::where('id',$id)->first();
+            $class->delete();
+            $request->session()->flash('message', '删除成功');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', $e->getMessage());
+            }
+            return redirect()->route('academic.class_summary');
+    }
 
 }

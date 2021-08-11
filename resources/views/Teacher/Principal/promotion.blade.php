@@ -16,7 +16,7 @@
 
       </div> 
   @endif
-    <a href="{{route('principal.menu')}}" class ="btn-sm btn-secondary">目录</a>
+    <a href="{{route('home')}}" class ="btn-sm btn-secondary">主页</a>
   <br>
   <br>
     <table class="table table-bordered" id ="dataTable">

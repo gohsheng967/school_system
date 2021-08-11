@@ -168,7 +168,7 @@
         </ul>
 
         <div class="tab-content bg-custom2" id="myTabContent">
-            <div class="tab-pane fade  p-4 show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade  p-4 " id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row my-0">
                     <div class="form-group col-sm-3">
                         <label for="main_contact">主要联系人<span class ="text-danger">*</span></label>
@@ -435,25 +435,47 @@
                 </table>
                 </div>
             </div>
-            <div class="tab-pane fade p-4 " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade p-4 show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="row">
                     <h5 class ="col-sm-6">班级讯息</h5>
                 </div>
                 <div class="row">
                     <table class="table table-bordered">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark text-center">
                             <tr>
-                                <th scope="col" style ="width:10%">年份</th>
-                                <th scope="col" style ="width:15%">班级名称</th>
-                                <th scope="col" style ="width:30%">班导师</th>
+                                <th scope="col" style ="width:20%">年份</th>
+                                <th scope="col" style ="width:40%">班级名称</th>
+                                <th scope="col" style ="width:40%">班导师</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                             @foreach($student->classes as $class)
                             <tr>
                                 <td>{{$class->year}}</td>
                                 <td>{{$class->class_name}}</td>
                                 <td>{{$class->user->id}} {{$class->user->name_chi}}师</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="row">
+                    <h5 class ="col-sm-6">在学优惠</h5>
+                    <table class="table table-bordered ">
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" style ="width:20%">年份</th>
+                                <th scope="col" style ="width:40%">优惠标题</th>
+                                <th scope="col" style ="width:40%">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach($student->promotion as $promotion)
+                            <tr>
+                                <td>{{$promotion->pivot->year}}</td>
+                                <td>{{$promotion->title}}</td>
+                                <td>{{$promotion->pivot->remark}}</td>
                             </tr>
                             @endforeach
                         </tbody>

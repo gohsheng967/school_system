@@ -62,4 +62,10 @@ Route::post('/academic/prize_save',[App\Http\Controllers\Academic::class, 'prize
 Route::post('/academic/prize_addwinner',[App\Http\Controllers\Academic::class, 'prize_addwinner'])->name('academic.prize_addwinner');
 Route::delete('/academic/prize_removewinner',[App\Http\Controllers\Academic::class, 'prize_deletewinner'])->name('academic.delete_addwinner');
 
+Route::get('/academic/class',[App\Http\Controllers\Academic::class, 'class_summary'])->name('academic.class_summary');
+Route::post('/academic/class_add',[App\Http\Controllers\Academic::class, 'class_add'])->name('academic.class_add');
+Route::get('/academic/class_edit/{id}',[App\Http\Controllers\Academic::class, 'class_edit'])->name('academic.class_edit');
+Route::patch('/academic/class_save/{id}',[App\Http\Controllers\Academic::class, 'class_save'])->name('academic.class_save');
+Route::delete('/academic/class_del/{id}',[App\Http\Controllers\Academic::class, 'class_del'])->name('academic.class_del');
+
 

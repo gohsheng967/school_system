@@ -24,6 +24,9 @@ class students extends Model
     public function Prize(){
         return $this->belongsToMany('App\Models\Prize')->withPivot('award');
     }
+    public function Promotion(){
+        return $this->belongsToMany('App\Models\Promotions')->withPivot('year','remark');
+    }
 
 
 

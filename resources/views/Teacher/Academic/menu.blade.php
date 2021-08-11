@@ -12,6 +12,7 @@
                 <a href="{{route('academic.edit')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">修改学生资料</a>
         </div>
         <div class="row my-1">
+                <a href="{{route('academic.class_summary')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">班级 / 班导师处理</a>
                 <a href="{{route('academic.prize')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">填写获奖记录</a>
                 <a href="{{route('principal.promotion')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">学生在学优惠</a>
         </div>
