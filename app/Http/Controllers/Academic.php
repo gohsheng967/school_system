@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentCreate_Request;
 use App\Http\Requests\Prize_Request;
+use App\Http\Requests\Prize_Add_Request;
 use App\Http\Requests\AddWinner_Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Students;
@@ -296,12 +297,30 @@ class Academic extends Controller
         return view('Teacher.academic.prize_edit',['academic'=>$academic, 'students'=>$students]);
     }
 
+    public function prize_add(Prize_Add_Request $request){
+        $clean_data = $request->validated();
+        $record = new Prize;
+        $record->title = mb_convert_case($clean_data['title'], MB_CASE_TITLE, "UTF-8");
+        $record->date = date("Y-m-d", strtotime($clean_data['date']));
+        $record->organizer =  mb_convert_case($clean_data['organizer'], MB_CASE_TITLE, "UTF-8");
+        $record->group =  $clean_data['group'];
+        $record->level =  $clean_data['level'];
+        $record->cateogory =  '学术 Academic';
+        if( $record->save()){
+            $request->session()->flash('message', '更新成功');
+            return back();
+        }else{
+            $request->session()->flash('message_error', '更新失败');
+            return back();
+        }
+    }
+
     public function prize_save(Prize_Request $request){
         $clean_data = $request->validated();
         $record = Prize::where('id',$clean_data['id'])->first();
-        $record->title = $clean_data['title'];
+        $record->title = mb_convert_case($clean_data['title'], MB_CASE_TITLE, "UTF-8");
         $record->date = date("Y-m-d", strtotime($clean_data['date']));
-        $record->organizer =  $clean_data['organizer'];
+        $record->organizer =  mb_convert_case($clean_data['organizer'], MB_CASE_TITLE, "UTF-8");
         $record->group =  $clean_data['group'];
         $record->level =  $clean_data['level'];
         if( $record->save()){
@@ -332,6 +351,18 @@ class Academic extends Controller
             $request->session()->flash('message_error', '移除失败');
             return back();
         }
+    }
+
+    public function prize_del(Request $request, $id){
+        try{
+            $class = Prize::where('id',$id)->first();
+            $class->delete();
+            $request->session()->flash('message', '删除成功');
+            }
+            catch (\Exception $e) {
+                $request->session()->flash('message_error', $e->getMessage());
+            }
+            return redirect()->route('academic.prize');
     }
 
 

@@ -58,7 +58,9 @@ Route::post('/academic/suec_import',[App\Http\Controllers\Academic::class, 'suec
 Route::post('/academic/supdate',[App\Http\Controllers\Academic::class, 'suec_update'])->name('academic.suec_update');
 Route::get('/academic/prize',[App\Http\Controllers\Academic::class, 'prize'])->name('academic.prize');
 Route::get('/academic/prize/{id}',[App\Http\Controllers\Academic::class, 'prize_edit'])->name('academic.prize_edit');
+Route::post('/academic/prize_add',[App\Http\Controllers\Academic::class, 'prize_add'])->name('academic.prize_add');
 Route::post('/academic/prize_save',[App\Http\Controllers\Academic::class, 'prize_save'])->name('academic.prize_save');
+Route::delete('/academic/prize_del/{id}',[App\Http\Controllers\Academic::class, 'prize_del'])->name('academic.prize_del');
 Route::post('/academic/prize_addwinner',[App\Http\Controllers\Academic::class, 'prize_addwinner'])->name('academic.prize_addwinner');
 Route::delete('/academic/prize_removewinner',[App\Http\Controllers\Academic::class, 'prize_deletewinner'])->name('academic.delete_addwinner');
 

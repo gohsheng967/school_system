@@ -13,9 +13,10 @@
         </div>
         <div class="row my-1">
                 <a href="{{route('academic.class_summary')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">班级 / 班导师处理</a>
-                <a href="{{route('academic.prize')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">填写获奖记录</a>
-                <a href="{{route('principal.promotion')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">学生在学优惠</a>
+                <a href="{{route('academic.prize')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">获奖记录处理</a>
+                <a href="{{route('principal.promotion')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">在学优惠处理</a>
         </div>
+        <hr>
         <div class="row my-1">
                 <a href="{{route('academic.juec')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">上传初中统考成绩</a>
                 <a href="{{route('academic.suec')}}" class ="btn btn-primary col-sm-3 p-2 mx-auto">上传高中统考成绩</a>

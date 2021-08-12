@@ -76,11 +76,9 @@
         <br>
         <div class="row">
                 <input type="text" name ="id" hidden value ="{{$academic->id}}">
-                <input type="submit" class =" btn btn-success col-sm-2 ml-auto"value ="储存 Save">
+                <input type="submit" class =" btn btn-success col-sm-2 btn-sm ml-auto"value ="储存 Save">
         </div>
-        {!! Form::close() !!}
-
-
+        {!! Form::close() !!}       
         <div class="row">
             <h5 class ="border border-warning p-3 rounded">得奖名单<span class="badge badge-dark">{{count($academic->students)}}</span></h5>
         </div>
@@ -130,11 +128,21 @@
             @endforeach
             </tbody>
             </table>
-<hr>
-
             <div class="row my-2">
                 <button class = 'btn btn-success col-sm-1 mx-auto btn-sm' data-toggle="modal" data-target="#add_participant"><i class="fas fa-plus"></i></button>
             </div>
+            <hr>
+            {!! Form::open(['method'=>'delete','action'=>['App\Http\Controllers\Academic@prize_del',$academic->id]]) !!}
+            <div class='text-center bg-danger p-3 rounded text-light'>
+                <p>删除此比赛资料将有可能导致此比赛内的得奖资料遗失</p>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" required>
+                    <label class="custom-control-label" for="customCheck1">我了解删除此比赛的风险</label>
+                </div>
+                <input type="submit" class = 'my-1 btn btn-light btn-sm' value ="删除" name ='delete'>
+            </div>
+            {!! Form::close() !!}
+
 
 
 {!! Form::open(['method'=>'post','action'=>['App\Http\Controllers\Academic@prize_addwinner']]) !!}
